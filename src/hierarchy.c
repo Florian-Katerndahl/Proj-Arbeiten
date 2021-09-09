@@ -10,7 +10,7 @@
 #include <string.h>
 #include "gdal/gdal.h"
 #include "gdal/cpl_conv.h"
-#include "src/help.h"
+#include "help.h"
 
 int main(int argc, char *argv[]) {
 	if (argc < 2) {
