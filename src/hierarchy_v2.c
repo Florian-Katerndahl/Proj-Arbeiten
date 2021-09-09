@@ -78,6 +78,11 @@ int main(int argc, char *argv[]) {
 	int outX, outY;
 	outX = GDALGetRasterXSize(mem_rasters[0].hData);
 	outY = GDALGetRasterYSize(mem_rasters[0].hData);
+
+	// Set creation option
+	papszOptions = CSLSetNameValue(papszOptions, "COMPRESS", "LZW");
+	papszOptions = CSLSetNameValue(papszOptions, "NUM_THREADS", "ALL_CPUS");
+	papszOptions = CSLSetNameValue(papszOptions, "NBITS", "3");
 	class_raster = GDALCreate(out_driver, *(argv + (argc - 2)), outX, outY, 1, GDT_Byte, papszOptions);
 
 	// Set creation options
@@ -86,7 +91,7 @@ int main(int argc, char *argv[]) {
 	papszOptions_2 = CSLSetNameValue(papszOptions_2, "PREDICTOR", "3");
 	papszOptions_2 = CSLSetNameValue(papszOptions_2, "NUM_THREADS", "ALL_CPUS");
 
-	max_fraction_raster = GDALCreate(out_driver, *(argv + (argc - 1)), outX, outY, 1, GDT_Byte, papszOptions_2);
+	max_fraction_raster = GDALCreate(out_driver, *(argv + (argc - 1)), outX, outY, 1, GDT_Float32, papszOptions_2);
 
 	if (class_raster == NULL) short_error("Failed to create output raster for classes.");
 	if (max_fraction_raster == NULL) short_error("Failed to create output raster for maximum fractions.");
@@ -203,6 +208,7 @@ int main(int argc, char *argv[]) {
 			out_mfrac_array, outX, outY, GDT_Float32,
 			0, 0
 			);
+
 	if (class_successfully_written != 0 || max_fraction_successfully_written != 0) {
 		fprintf(stderr, "Failed to write output\n");
 		GDALClose(class_raster);

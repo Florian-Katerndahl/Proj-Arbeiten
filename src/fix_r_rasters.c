@@ -13,6 +13,7 @@
 #include <string.h>
 #include "gdal/gdal.h"
 #include "gdal/cpl_conv.h"
+#include "gdal/cpl_string.h"
 #include "help.h"
 
 int main(int argc, char *argv[]) {
@@ -43,10 +44,15 @@ int main(int argc, char *argv[]) {
 	GDALDriverH out_driver;
 	out_driver = GDALGetDriverByName("GTiff");
 	CPLErr out_success;
-	char **papszOptions = NULL; // Whatever a double pointer is... -> never used
+	char **papszOptions = NULL;
 	int outX, outY;
 	outX = GDALGetRasterXSize(*rasters);
 	outY = GDALGetRasterYSize(*rasters);
+
+	// Set creation options
+	papszOptions = CSLSetNameValue(papszOptions, "COMPRESS", "DEFLATE");
+	papszOptions = CSLSetNameValue(papszOptions, "PREDICTOR", "3");
+	papszOptions = CSLSetNameValue(papszOptions, "NUM_THREADS", "ALL_CPUS");
 	out_stack = GDALCreate(out_driver, *(argv + (argc - 1)), outX, outY, n_rasters, GDT_Float32, papszOptions);
 
 	// get and set Geotransform
