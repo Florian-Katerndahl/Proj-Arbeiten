@@ -182,7 +182,8 @@ output_variables dominant_class_of_array(pixel *x, const int n, double NAval) {
 			continue;
 		}
 
-		if (x[j].filled == 2 && x[j + 1].filled == 2) {
+		if ((x[j].filled == 2 && x[j + 1].filled == 2) ||
+				(x[j].filled == 3 && x[j + 1].filled == 3)) {
 			// includes swap if x[j + 1] is invalid (in following cases as well)
 			if (x[j].dominant_fraction > x[j + 1].dominant_fraction) {
 				swap(&x[j], &x[j + 1]);
@@ -193,10 +194,6 @@ output_variables dominant_class_of_array(pixel *x, const int n, double NAval) {
 			}
 		} else if (x[j].filled == 3 && x[j + 1].filled == 2) {
 			if ((*x[j + 1].rmse - *x[j].rmse) > RMSE_CMP && x[j].dominant_fraction > x[j + 1].dominant_fraction) {
-				swap(&x[j], &x[j + 1]);
-			}
-		} else if (x[j].filled == 3 && x[j + 1].filled == 3) {
-			if (x[j].dominant_fraction > x[j + 1].dominant_fraction) {
 				swap(&x[j], &x[j + 1]);
 			}
 		}
