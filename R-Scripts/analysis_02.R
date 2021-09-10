@@ -13,7 +13,7 @@ source("funs.R")
 
 em <- st_read("./vector/em-candidates.gpkg", layer = "Endmember") %>%
     st_buffer(-20) %>%
-    filter(!st_is_empty(.) || !Klasse == "Glasdach")
+    filter(!st_is_empty(.) | !Klasse == "Glasdach")
 
 emp <- st_read("./vector/em-candidates.gpkg", layer = "Endmember Points") %>% 
     rename(geom = geometry)
@@ -128,8 +128,8 @@ out_speclib <- bind_rows(L1_impervious_spectra_subset, L1_pervious_spectra_subse
 write.csv(out_speclib, "./data-processed/Level1_2EM.csv", fileEncoding = "UTF-8")
 
 # convolution for 3em models ->  das ist doch falsch was ich hier mache!!
-three_ems = list()
-count = 0
+three_ems <- list()
+count <- 0
 for (i in 1:20) {
     for (j in 1:20) {
         if (runif(1, 0 , 1) > 0.5 & count < 150) {
@@ -190,8 +190,8 @@ out_speclib_L2 <- bind_rows(Level2_soil_spectra, Level2_vegetation_spectra) %>%
 write.csv(out_speclib_L2, "./data-processed/Level2_2EM.csv", fileEncoding = "UTF-8")
 
 # convolution for 3em models -> see Level-1
-three_ems = list()
-count = 0
+three_ems <- list()
+count <- 0
 for (i in 1:20) {
     for (j in 1:20) {
         if (runif(1, 0 , 1) > 0.5 & count < 100) {
@@ -251,8 +251,8 @@ out_speclib_L3 <- bind_rows(Level3_grass_spectra, Level3_tree_spectra) %>%
 write.csv(out_speclib_L3, "./data-processed/Level3_2EM.csv", fileEncoding = "UTF-8")
 
 # convolution for 3em models -> see Level-1
-three_ems = list()
-count = 0
+three_ems <- list()
+count <- 0
 for (i in 1:20) {
     for (j in 21:40) {
         if (runif(1, 0 , 1) > 0.5 & count < 100) {
