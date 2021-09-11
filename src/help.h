@@ -6,7 +6,7 @@
 #define PROJ_AB_HELP_H
 
 #define FAILURE EXIT_FAILURE
-#define RMSE_T 100.0 // ! only used in old hierarchy built, essentially not used anymore
+#define RMSE_T 0.05
 #define RMSE_CMP 0.1
 #define LENGTH_CNAME 100
 #define H_CODED_N 5

@@ -175,15 +175,16 @@ output_variables dominant_class_of_array(pixel *x, const int n, double NAval) {
 	// inner part of bubble sort, get largest element
 	// ! '>' and '<='
 	for (int j = 0; j < n - 1; ++j) {
-		// don't swap i x[j] is invalid (in following cases as well)
+		// don't swap i x[j] is invalid
 		if (any_invalid(x[j].dominant_fraction, *x[j].rmse, NAval) ||
-			(x[j].dominant_fraction < LOWER_FRACTIONS || x[j].dominant_fraction > UPPER_FRACTIONS)) {
+			(x[j].dominant_fraction < LOWER_FRACTIONS || x[j].dominant_fraction > UPPER_FRACTIONS) ||
+			(*x[j].rmse > RMSE_T)) {
 			na_ctr++;
 			continue;
 		}
 
 		if ((x[j].filled == 2 && x[j + 1].filled == 2) ||
-				(x[j].filled == 3 && x[j + 1].filled == 3)) {
+			(x[j].filled == 3 && x[j + 1].filled == 3)) {
 			// includes swap if x[j + 1] is invalid (in following cases as well)
 			if (x[j].dominant_fraction > x[j + 1].dominant_fraction) {
 				swap(&x[j], &x[j + 1]);
