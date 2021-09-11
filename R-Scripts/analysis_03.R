@@ -171,9 +171,9 @@ level2_2em <- read.csv("/data/Dagobah/fonda/shk/fonda/proj_ab/data/speclibs/Leve
 level2_3em <- read_rds("/data/Dagobah/fonda/shk/fonda/proj_ab/data/speclibs/Level2_3EM.rds")
 
 for (i in 1:length(ras_files)) {
-    Level2_mask <- raster(paste0("/data/Dagobah/fonda/shk/fonda/proj_ab/data/", years[i], "/Level_1/l1_hierarchy.tif"))
+    Level2_mask <- raster(paste0("/data/Dagobah/fonda/shk/fonda/proj_ab/data/", years[i], "/Level_1/l1_hierarchy_", years[i], ".tif"))
     ras <- stack(ras_files[i])
-    ras <- mask(ras, Level2_mask, maskvalue = 2, updatevalue = NA)
+    ras <- mask(ras, Level2_mask, maskvalue = c(NA, 2), updatevalue = NA)
 
     mesma_returns <- foreach(model_1 = isplitRows(level2_2em, chunkSize = 1),
                              .packages = c("raster", "RStoolbox", "stringr"),
@@ -297,7 +297,6 @@ for (i in 1:length(ras_files)) {
     system("echo L2 3-EM done")
 }
 
-# wut...smth not working
 system(
     cat("for y in 2020 2019 2018 2017 2016 2015;",
         "do for dir in /data/Dagobah/fonda/shk/fonda/proj_ab/data/$y/Level_2/*;",
@@ -323,7 +322,7 @@ level3_3em <- read_rds("/data/Dagobah/fonda/shk/fonda/proj_ab/data/speclibs/Leve
 for (i in 1:length(ras_files)) {
     Level3_mask <- raster(paste0("/data/Dagobah/fonda/shk/fonda/proj_ab/data/", years[i], "/Level_2/l2_hierarchy_", years[i], ".tif"))
     ras <- stack(ras_files[i])
-    ras <- mask(ras, Level3_mask, maskvalue = 4, updatevalue = NA)
+    ras <- mask(ras, Level3_mask, maskvalue = c(NA, 4), updatevalue = NA)
     
     mesma_returns <- foreach(model_1 = isplitRows(level2_2em, chunkSize = 1),
                              .packages = c("raster", "RStoolbox", "stringr"),
