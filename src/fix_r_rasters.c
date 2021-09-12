@@ -52,7 +52,7 @@ int main(int argc, char *argv[]) {
 	// Set creation options
 	papszOptions = CSLSetNameValue(papszOptions, "COMPRESS", "DEFLATE");
 	papszOptions = CSLSetNameValue(papszOptions, "PREDICTOR", "3");
-	papszOptions = CSLSetNameValue(papszOptions, "NUM_THREADS", "ALL_CPUS"); // is 1 for server bc of parallelized R script
+	papszOptions = CSLSetNameValue(papszOptions, "NUM_THREADS", "1");
 	out_stack = GDALCreate(out_driver, *(argv + (argc - 1)), outX, outY, n_rasters, GDT_Float32, papszOptions);
 
 	// get and set Geotransform
