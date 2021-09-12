@@ -80,6 +80,8 @@ for (i in 1:length(ras_files)) {
 						overwrite = TRUE)
 		}
 
+		rm(out_ras, ID, class_name)
+
 		system(
 			paste(
 				"/data/Dagobah/fonda/shk/fonda/proj_ab/src/release/fix_rasters",
@@ -87,8 +89,6 @@ for (i in 1:length(ras_files)) {
 				paste0(out_dir, "/out.tif")
 			)
 		)
-
-		rm(out_ras, ID, class_name)
 
 		return(TRUE)
 	}
@@ -149,6 +149,8 @@ for (i in 1:length(ras_files)) {
 						overwrite = TRUE)
 		}
 
+		rm(out_ras, ID, class_name)
+
 		system(
 			paste(
 				"/data/Dagobah/fonda/shk/fonda/proj_ab/src/release/fix_rasters",
@@ -156,8 +158,6 @@ for (i in 1:length(ras_files)) {
 				paste0(out_dir, "/out.tif")
 			)
 		)
-
-		rm(out_ras, ID, class_name)
 
 		return(TRUE)
 	}
@@ -245,6 +245,8 @@ for (i in 1:length(ras_files)) {
 						overwrite = TRUE)
 		}
 
+		rm(out_ras, ID, class_name)
+
 		system(
 			paste(
 				"/data/Dagobah/fonda/shk/fonda/proj_ab/src/release/fix_rasters",
@@ -252,8 +254,6 @@ for (i in 1:length(ras_files)) {
 				paste0(out_dir, "/out.tif")
 			)
 		)
-
-		rm(out_ras, ID, class_name)
 
 		return(TRUE)
 	}
@@ -314,6 +314,8 @@ for (i in 1:length(ras_files)) {
 						overwrite = TRUE)
 		}
 
+		rm(out_ras, ID, class_name)
+
 		system(
 			paste(
 				"/data/Dagobah/fonda/shk/fonda/proj_ab/src/release/fix_rasters",
@@ -321,8 +323,6 @@ for (i in 1:length(ras_files)) {
 				paste0(out_dir, "/out.tif")
 			)
 		)
-
-		rm(out_ras, ID, class_name)
 
 		return(TRUE)
 	}
@@ -409,6 +409,8 @@ for (i in 1:length(ras_files)) {
 						overwrite = TRUE)
 		}
 
+		rm(out_ras, ID, class_name)
+
 		system(
 			paste(
 				"/data/Dagobah/fonda/shk/fonda/proj_ab/src/release/fix_rasters",
@@ -416,8 +418,6 @@ for (i in 1:length(ras_files)) {
 				paste0(out_dir, "/out.tif")
 			)
 		)
-
-		rm(out_ras, ID, class_name)
 
 		return(TRUE)
 	}
@@ -478,6 +478,8 @@ for (i in 1:length(ras_files)) {
 						overwrite = TRUE)
 		}
 
+		rm(out_ras, ID, class_name)
+
 		system(
 			paste(
 				"/data/Dagobah/fonda/shk/fonda/proj_ab/src/release/fix_rasters",
@@ -485,8 +487,6 @@ for (i in 1:length(ras_files)) {
 				paste0(out_dir, "/out.tif")
 			)
 		)
-
-		rm(out_ras, ID, class_name)
 
 		return(TRUE)
 	}
