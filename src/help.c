@@ -93,7 +93,7 @@ void close_GDALarray(GDALDatasetH *GDAL_ptr, int length) {
 }
 
 int is_invalid_data(const float cellVal, double NAVal) {
-	double epsilon = 0.00000000001;
+	double epsilon = 0.000001;
 	if (fabsf(cellVal - (float) NAVal) < epsilon) {
 		return 1;
 	} else {
