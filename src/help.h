@@ -98,7 +98,7 @@ int any_invalid(float x, float y, double NAValue);
 void short_error(char *msg);
 
 //! Sort an array of type pixel
-output_variables dominant_class_of_array(pixel *x, const int n, double NAval);
+output_variables dominant_class_of_array(pixel *x, const int n, double NAval, int level);
 
 //! Given two entries of an array, swap them
 void swap_arr(GByte *x, GByte *y);
