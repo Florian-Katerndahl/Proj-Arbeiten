@@ -191,7 +191,7 @@ int main(int argc, char *argv[]) {
 				}
 			}
 			// done looping over individual rasters, now sort array and fill in jth entry of out_class_array with dominant class
-			out_vars = dominant_class_of_array(pixel_stack, n_rasters, NA_value);
+			out_vars = dominant_class_of_array(pixel_stack, n_rasters, NA_value, hierarchy_level);
 			out_class_array[flat_idx] = out_vars.class;
 			out_mfrac_array[flat_idx] = out_vars.class_fraction;
 			clear_pixel_stack(pixel_stack, n_rasters);
