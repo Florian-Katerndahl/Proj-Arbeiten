@@ -17,21 +17,21 @@ ras_files <- list.files("/data/Dagobah/fonda/shk/fonda/proj_ab/data/basefiles", 
 years <- 2015:2020
 
 registerDoParallel(cores = 55)
-# Level-2
-level2_2em <- read.csv("/data/Dagobah/fonda/shk/fonda/proj_ab/data/speclibs/Level2_2EM.csv",
+# Level-3
+level3_2em <- read.csv("/data/Dagobah/fonda/shk/fonda/proj_ab/data/speclibs/Level3_2EM.csv",
                        fileEncoding = "UTF-8", stringsAsFactors = FALSE)
-level2_3em <- read_rds("/data/Dagobah/fonda/shk/fonda/proj_ab/data/speclibs/Level2_3EM.rds")
+level3_3em <- read_rds("/data/Dagobah/fonda/shk/fonda/proj_ab/data/speclibs/Level3_3EM.rds")
 
 for (i in 1:length(ras_files)) {
   system(
       paste(
-          "/data/Dagobah/fonda/shk/fonda/proj_ab/src/release/mask_stack 2",
+          "/data/Dagobah/fonda/shk/fonda/proj_ab/src/release/mask_stack 4",
           ras_files[i],
           paste0("/data/Dagobah/fonda/shk/fonda/proj_ab/data/", years[i], "/Level_1/l1_hierarchy_", years[i], ".tif"),
-          paste0("/data/Dagobah/fonda/shk/fonda/proj_ab/data/basefiles/masked_BAP_L2-", years[1], ".tif")
+          paste0("/data/Dagobah/fonda/shk/fonda/proj_ab/data/basefiles/masked_BAP_L3-", years[1], ".tif")
       )
   )
-  ras <- stack(paste0("/data/Dagobah/fonda/shk/fonda/proj_ab/data/basefiles/masked_BAP_L2-", years[1], ".tif"))
+  ras <- stack(paste0("/data/Dagobah/fonda/shk/fonda/proj_ab/data/basefiles/masked_BAP_L3-", years[1], ".tif"))
 
   mesma_returns <- foreach(model_1 = isplitRows(level2_2em, chunkSize = 1),
                            .packages = c("raster", "RStoolbox", "stringr"),
@@ -51,7 +51,7 @@ for (i in 1:length(ras_files)) {
 
     ID <- model_1[, "X", drop = TRUE]
 
-    out_dir <- paste0("/data/Dagobah/fonda/shk/fonda/proj_ab/data/", years[i], "/Level_2/", paste0(ID))
+    out_dir <- paste0("/data/Dagobah/fonda/shk/fonda/proj_ab/data/", years[i], "/Level_3/", paste0(ID))
 
     out_dir <- str_replace(out_dir, "[\\s]", "_")
 
@@ -72,7 +72,7 @@ for (i in 1:length(ras_files)) {
         name <- class_name[j]
       }
 
-      path <- paste0("/data/Dagobah/fonda/shk/fonda/proj_ab/data/", years[i], "/Level_2/", paste0(ID), "/", name, ".tif")
+      path <- paste0("/data/Dagobah/fonda/shk/fonda/proj_ab/data/", years[i], "/Level_3/", paste0(ID), "/", name, ".tif")
 
       path <- str_replace(path, "[\\s]", "_")
 
@@ -87,6 +87,8 @@ for (i in 1:length(ras_files)) {
                   overwrite = TRUE)
     }
 
+    rm(out_ras, ID, class_name)
+
     system(
         paste(
             "/data/Dagobah/fonda/shk/fonda/proj_ab/src/release/fix_rasters",
@@ -94,8 +96,6 @@ for (i in 1:length(ras_files)) {
             paste0(out_dir, "/out.tif")
         )
     )
-
-    rm(out_ras, ID, class_name)
 
     return(TRUE)
   }
@@ -120,7 +120,7 @@ for (i in 1:length(ras_files)) {
 
     ID <- str_c(model_1[, "FID", drop = TRUE], collapse = "_")
 
-    out_dir <- paste0("/data/Dagobah/fonda/shk/fonda/proj_ab/data/", years[i], "/Level_2/", paste0(ID))
+    out_dir <- paste0("/data/Dagobah/fonda/shk/fonda/proj_ab/data/", years[i], "/Level_3/", paste0(ID))
 
     out_dir <- str_replace(out_dir, "[\\s]", "_")
 
@@ -141,7 +141,7 @@ for (i in 1:length(ras_files)) {
         name <- class_name[j]
       }
 
-      path <- paste0("/data/Dagobah/fonda/shk/fonda/proj_ab/data/", years[i], "/Level_2/", paste0(ID), "/", name, ".tif")
+      path <- paste0("/data/Dagobah/fonda/shk/fonda/proj_ab/data/", years[i], "/Level_3/", paste0(ID), "/", name, ".tif")
 
       path <- str_replace(path, "[\\s]", "_")
 
@@ -156,6 +156,8 @@ for (i in 1:length(ras_files)) {
                   overwrite = TRUE)
     }
 
+    rm(out_ras, ID, class_name)
+
     system(
         paste(
             "/data/Dagobah/fonda/shk/fonda/proj_ab/src/release/fix_rasters",
@@ -164,9 +166,9 @@ for (i in 1:length(ras_files)) {
         )
     )
 
-    rm(out_ras, ID, class_name)
-
     return(TRUE)
   }
   system("echo L2 3-EM done")
 }
+
+stopImplicitCluster()
