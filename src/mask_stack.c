@@ -20,6 +20,7 @@ int main(int argc, char *argv[]) {
 		printf("in_stack:\t\tStack to mask\n");
 		printf("in_mask:\t\tmask raster\n");
 		printf("out_stack:\t\tOutput stack\n");
+		exit(1);
 	}
 
 	const int mask_value = (int) strtol(*(argv + 1), NULL, 10);
