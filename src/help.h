@@ -10,7 +10,7 @@
 #define RMSE_CMP 0.1
 #define LENGTH_CNAME 100
 #define H_CODED_N 5
-#define UPPER_FRACTIONS 1.05
+#define UPPER_FRACTIONS 1.6
 #define LOWER_FRACTIONS -0.05
 
 // hard-coding is stupid, but it just needs to work

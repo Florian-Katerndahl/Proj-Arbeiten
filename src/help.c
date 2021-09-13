@@ -11,7 +11,6 @@
 #include "gdal/gdal.h"
 #include "help.h"
 
-// TODO Level-3
 void find_class(Datasets *src, int n) {
 	// are those all classes in the end?
 	const static char L1_pervious[4][30] = {"Gras", "Sand", "Boden", "Baum"};
@@ -153,7 +152,7 @@ void short_error(char *msg) {
 	exit(FAILURE);
 }
 
-output_variables dominant_class_of_array(pixel *x, const int n, double NAval) {
+output_variables dominant_class_of_array(pixel *x, const int n, double NAval, int level) {
 	output_variables o_vars;
 	int na_ctr = 0;
 
@@ -176,9 +175,7 @@ output_variables dominant_class_of_array(pixel *x, const int n, double NAval) {
 	// ! '>' and '<='
 	for (int j = 0; j < n - 1; ++j) {
 		// don't swap i x[j] is invalid
-		if (any_invalid(x[j].dominant_fraction, *x[j].rmse, NAval) ||
-			(x[j].dominant_fraction < LOWER_FRACTIONS || x[j].dominant_fraction > UPPER_FRACTIONS) ||
-			(*x[j].rmse > RMSE_T)) {
+		if (any_invalid(x[j].dominant_fraction, *x[j].rmse, NAval)) {
 			na_ctr++;
 			continue;
 		}
