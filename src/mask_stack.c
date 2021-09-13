@@ -51,7 +51,7 @@ int main(int argc, char *argv[]) {
 	outY = GDALGetRasterYSize(in_stack);
 	papszOptions = CSLSetNameValue(papszOptions, "COMPRESS", "DEFLATE");
 	papszOptions = CSLSetNameValue(papszOptions, "PREDICTOR", "3");
-	papszOptions = CSLSetNameValue(papszOptions, "NUM_THREADS", "ALL_CPUS");
+	papszOptions = CSLSetNameValue(papszOptions, "NUM_THREADS", "1");
 	papszOptions = CSLSetNameValue(papszOptions, "ZLEVEL", "9");
 
 	out_dataset = GDALCreate(out_driver, *(argv + 4), outX, outY, 10, GDT_Float32, papszOptions);
