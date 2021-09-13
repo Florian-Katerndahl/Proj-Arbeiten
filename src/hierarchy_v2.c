@@ -93,8 +93,8 @@ int main(int argc, char *argv[]) {
 
 	max_fraction_raster = GDALCreate(out_driver, *(argv + (argc - 1)), outX, outY, 1, GDT_Float32, papszOptions_2);
 
-	if (class_raster == NULL) short_error("Failed to create output raster for classes.");
-	if (max_fraction_raster == NULL) short_error("Failed to create output raster for maximum fractions.");
+	if (class_raster == NULL) short_error("Failed to create output raster for classes.\n");
+	if (max_fraction_raster == NULL) short_error("Failed to create output raster for maximum fractions.\n");
 
 	// get and set Geotransform
 	double mem_geo[6];
@@ -186,7 +186,7 @@ int main(int argc, char *argv[]) {
 				}
 				if (pixel_stack[k].frac1_err != CE_None || pixel_stack[k].rmse_err != CE_None
 					|| (pixel_stack[k].filled == 3 && pixel_stack[k].frac2_err != CE_None)) {
-					fprintf(stderr, "Failed to read cell value from in-memory raster\n");
+					fprintf(stderr, "Failed to read cell value from in-memory raster N° %d\n", k + 1);
 					exit(FAILURE);
 				}
 			}

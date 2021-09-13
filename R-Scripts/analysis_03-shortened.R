@@ -13,10 +13,12 @@ library(doParallel)
 library(readr)
 source("/data/Dagobah/fonda/shk/fonda/proj_ab/scripts/funs.R")
 
-ras_files <- list.files("/data/Dagobah/fonda/shk/fonda/proj_ab/data/basefiles", full.names = TRUE)
+ras_files <- list.files("/data/Dagobah/fonda/shk/fonda/proj_ab/data/basefiles", full.names = TRUE,
+                        pattern = ".*LEVEL3_SEN2L_BAP.tif")
 years <- 2015:2020
 
-registerDoParallel(cores = 55)
+registerDoParallel(cores = 45)
+
 # Level-3
 level3_2em <- read.csv("/data/Dagobah/fonda/shk/fonda/proj_ab/data/speclibs/Level3_2EM.csv",
                        fileEncoding = "UTF-8", stringsAsFactors = FALSE)
@@ -28,12 +30,12 @@ for (i in 1:length(ras_files)) {
           "/data/Dagobah/fonda/shk/fonda/proj_ab/src/release/mask_stack 4",
           ras_files[i],
           paste0("/data/Dagobah/fonda/shk/fonda/proj_ab/data/", years[i], "/Level_1/l1_hierarchy_", years[i], ".tif"),
-          paste0("/data/Dagobah/fonda/shk/fonda/proj_ab/data/basefiles/masked_BAP_L3-", years[1], ".tif")
+          paste0("/data/Dagobah/fonda/shk/fonda/proj_ab/data/basefiles/masked_BAP_L3-", years[i], ".tif")
       )
   )
-  ras <- stack(paste0("/data/Dagobah/fonda/shk/fonda/proj_ab/data/basefiles/masked_BAP_L3-", years[1], ".tif"))
+  ras <- stack(paste0("/data/Dagobah/fonda/shk/fonda/proj_ab/data/basefiles/masked_BAP_L3-", years[i], ".tif"))
 
-  mesma_returns <- foreach(model_1 = isplitRows(level2_2em, chunkSize = 1),
+  mesma_returns <- foreach(model_1 = isplitRows(level3_2em, chunkSize = 1),
                            .packages = c("raster", "RStoolbox", "stringr"),
                            .inorder = FALSE,
                            .multicombine = TRUE) %dopar% {
@@ -100,9 +102,9 @@ for (i in 1:length(ras_files)) {
     return(TRUE)
   }
 
-  system("echo L2 2-EM done")
+  system("echo L3 2-EM done")
 
-  mesma_returns <- foreach(model_1 = isplitVector(level2_3em, chunkSize = 1),
+  mesma_returns <- foreach(model_1 = isplitVector(level3_3em, chunkSize = 1),
                            .packages = c("raster", "RStoolbox", "stringr"),
                            .inorder = FALSE,
                            .multicombine = TRUE) %dopar% {
@@ -168,7 +170,7 @@ for (i in 1:length(ras_files)) {
 
     return(TRUE)
   }
-  system("echo L2 3-EM done")
+  system("echo L3 3-EM done")
 }
 
 stopImplicitCluster()
