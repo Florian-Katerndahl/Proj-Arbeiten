@@ -325,6 +325,11 @@ for (i in 1:length(ras_files)) {
 # Hierarchy Building on local machine!
 
 # Level-3
+# this "transports" the masks from level 2 to 3, the fact that I forgot this doesn't
+# change anything besides that I waited longer for the proccessing that I would have needed
+# than if I had noticed it before being done with processing everything
+ras_files <- list.files("/data/Dagobah/fonda/shk/fonda/proj_ab/data/basefiles", full.names = TRUE,
+						pattern = "masked_BAP_L2-.*.tif")
 level3_2em <- read.csv("/data/Dagobah/fonda/shk/fonda/proj_ab/data/speclibs/Level3_2EM.csv",
 					   fileEncoding = "UTF-8", stringsAsFactors = FALSE)
 level3_3em <- read_rds("/data/Dagobah/fonda/shk/fonda/proj_ab/data/speclibs/Level3_3EM.rds")

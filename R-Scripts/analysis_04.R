@@ -26,12 +26,11 @@ foreach(year = isplitVector(years, chunkSize = 1),
 	raster_files <- list.files(path = paste0("./data-results/", as.numeric(year), "/"), pattern = ".*hierarchy.*\\.tif$", full.names = TRUE)
 	maxfrac_files <- list.files(path = paste0("./data-results/", as.numeric(year), "/"), pattern = ".*maxfrac.*\\.tif$", full.names = TRUE)
 
-
 	raster_stack <- stack(raster_files)
 	maxfrac_stack <- stack(maxfrac_files)
 
-	# huh, whyever this is still needed. must have missed something in analysis_03 - but this doens't effect anything
-	# else
+	# found my mistake! -> mistake doesn't change any of the methodology it just means, that for level3,
+	# I did a lot of unnecessary computation
 	raster_stack[[3]] <- mask(raster_stack[[3]], raster_stack[[1]], maskvalue = 2, updatevalue = NA)
 	raster_stack[[3]] <- mask(raster_stack[[3]], raster_stack[[2]], maskvalue = 4, updatevalue = NA)
 
